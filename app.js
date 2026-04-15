@@ -138,9 +138,14 @@ function Topbar({ route }) {
           ))}
         </nav>
         <div className="cta">
-          <a className="button" href={`mailto:${RESUME.email}`}>
-            Email
-          </a>
+          <a
+          className="button primary"
+          href={RESUME.links.linkedin}
+          target="_blank"
+          rel="noreferrer"
+        >
+          LinkedIn
+        </a>
           <a
             className="button primary"
             href={RESUME.links.github}
@@ -169,22 +174,6 @@ function Hero() {
         shipping full-stack apps in government and building accessible,
         performance-focused web experiences.
       </p>
-      <div className="hero-actions">
-        <a
-          className="button primary"
-          href={RESUME.links.linkedin}
-          target="_blank"
-          rel="noreferrer"
-        >
-          LinkedIn
-        </a>
-        <a className="button" href={RESUME.links.website} target="_blank" rel="noreferrer">
-          Current site
-        </a>
-        <a className="button" href="#/photos">
-          View photo catalogue
-        </a>
-      </div>
     </section>
   );
 }
@@ -337,14 +326,12 @@ function ContactCard() {
       <h2>Contact</h2>
       <div className="grid">
         <div className="card span-7">
-          <h3>Let’s connect</h3>
-          <p>
-            Best way to reach me is email. I’m also active on GitHub and LinkedIn.
-          </p>
+          <h3>Let’s connect!</h3>
           <div className="hero-actions">
-            <a className="button primary" href={`mailto:${RESUME.email}`}>
-              {RESUME.email}
-            </a>
+            <p>
+                {RESUME.email}
+            </p>
+            
             <a className="button" href={RESUME.links.github} target="_blank" rel="noreferrer">
               GitHub
             </a>
@@ -352,13 +339,6 @@ function ContactCard() {
               LinkedIn
             </a>
           </div>
-        </div>
-        <div className="card span-5">
-          <h3>Quick facts</h3>
-          <p>
-            Interests: secure authentication, APIs, performance, accessibility, and clean UI/UX.
-          </p>
-          <Chips items={["OAuth & tokens", "REST APIs", "Accessibility", "Performance"]} ariaLabel="Focus areas" />
         </div>
       </div>
     </section>
@@ -487,11 +467,7 @@ function PhotosPage() {
     <div className="container">
       <section className="hero">
         <p className="kicker">Photo catalogue</p>
-        <h2 className="headline">A curated set of my pictures.</h2>
-        <p className="lede">
-          Add your images into the <span className="muted">/photos</span> folder and list them in{" "}
-          <span className="muted">/photos/photos.json</span>.
-        </p>
+        <h2 className="headline">Photos I have taken through the years. Just a passion of mine!</h2>
       </section>
 
       <section className="section">

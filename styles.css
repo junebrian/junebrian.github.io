@@ -105,6 +105,7 @@ a:hover{text-decoration:underline;}
 .card.small{border-radius:var(--radius-sm);}
 .card h3{margin:0 0 8px;font-size:14px;letter-spacing:0.2px;}
 .card p{margin:0;color:var(--muted);line-height:1.6;font-size:13px;}
+.span-4 { grid-column: span 4; }
 .span-7{grid-column:span 7;}
 .span-5{grid-column:span 5;}
 .span-6{grid-column:span 6;}
@@ -183,8 +184,8 @@ input[type="search"]:focus{outline:3px solid var(--ring);outline-offset:2px;}
 .modal-title span{display:block;font-size:12px;color:var(--subtle);margin-top:2px;}
 .modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
 @media (max-width: 900px){
-  .span-7,.span-5,.span-6{grid-column:span 12;}
-  .masonry{grid-template-columns:repeat(2,1fr);}
+  .span-7, .span-5, .span-6, .span-4 { grid-column: span 12; }
+  .masonry { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px){
   .topbar-inner{align-items:flex-start;}
@@ -192,3 +193,4 @@ input[type="search"]:focus{outline:3px solid var(--ring);outline-offset:2px;}
   .masonry{grid-template-columns:1fr;}
   .thumb img{height:220px;}
 }
+
