@@ -58,6 +58,42 @@
     "title": "City Skyline",
     "date": "2024-01",
     "tags": ["city","night"]
+  },
+  {
+    "src": "./photos/69FDA98C-D0EB-48D9-9718-46BD01F231DD.jpg",
+    "title": "Colorful Cafe",
+    "date": "2026-04",
+    "tags": ["cafe","vibrant"]
+  },
+  {
+    "src": "./photos/DSCF2744_Original.JPG",
+    "title": "Look!",
+    "date": "2025-11",
+    "tags": ["cozy","friends"]
+  },
+  {
+    "src": "./photos/DSCF5203_Original.JPG",
+    "title": "tic tac toe",
+    "date": "2026-02",
+    "tags": ["city","night"]
+  },
+  {
+    "src": "./photos/IMG_4876.JPG",
+    "title": "Dream Sun",
+    "date": "2024-08",
+    "tags": ["mexico","sunset"]
+  },
+  {
+    "src": "./photos/IMG_6140.JPG",
+    "title": "Avocado on Toast",
+    "date": "2025-12",
+    "tags": ["food","breakfast"]
+  },
+  {
+    "src": "./photos/IMG_6573.JPG",
+    "title": "City of Signs",
+    "date": "2026-01",
+    "tags": ["city","night","lights"]
   }
   
 ]
