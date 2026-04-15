@@ -172,6 +172,7 @@ a:hover{text-decoration:underline;}
   border-color:rgba(255,154,74,0.45);
   background:linear-gradient(145deg, rgba(255,154,74,0.22), rgba(185,124,255,0.10));
 }
+.photos-surface .headline{ color: rgba(10,12,18,0.82); }
 
 .nav-overlay{
   position:fixed;top:0;left:0;right:0;z-index:100;

@@ -254,7 +254,7 @@ function About() {
     <section className="section" id="about">
       <h2>About</h2>
       <div className="grid">
-        <div className="card span-7">
+        <div className="card span-12">
           <h3>Hi — I’m {RESUME.name}</h3>
           <p className="muted" style={{ margin: "8px 0 0", lineHeight: 1.7 }}>
             {RESUME.about[0]}
@@ -276,12 +276,6 @@ function About() {
               Email
             </a>
           </div>
-        </div>
-        <div className="card small span-5">
-          <h3>Now</h3>
-          <p>
-            Working on projects, learning, and documenting what I build. If you want to collaborate, reach out.
-          </p>
         </div>
       </div>
     </section>
@@ -430,28 +424,6 @@ function Extracurriculars() {
   );
 }
 
-function ContactCard() {
-  return (
-    <section className="section">
-      <h2>Contact</h2>
-      <div className="grid">
-        <div className="card span-7">
-          <h3>Let’s connect!</h3>
-          <div className="hero-actions">
-            <p>{RESUME.email}</p>
-            <a className="button" href={RESUME.links.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-            <a className="button" href={RESUME.links.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function AboutPage() {
   return (
     <>
@@ -462,8 +434,7 @@ function AboutPage() {
         <Experience />
         <Projects />
         <Education />
-        <Extracurriculars />
-        <ContactCard />
+        <Extracurriculars />s
       </div>
     </>
   );
@@ -577,8 +548,10 @@ function PhotosPage() {
     <div className="photos-surface">
       <div id="page-content" className="container">
         <section className="hero">
-          <p className="kicker">Photo catalogue</p>
-          <h2 className="headline">Photos I have taken through the years. Just a passion of mine!</h2>
+          <h2 className="headline">Photo Catalogue</h2>
+          <p className="lede">
+            A collection of moments captured through the years. Just a passion project.
+          </p>
         </section>
 
         <section className="section">
