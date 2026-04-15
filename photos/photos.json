@@ -1,0 +1,63 @@
+[
+  {
+    "src": "./photos/20230523_204103.jpg",
+    "title": "Green Wall",
+    "date": "2023-05",
+    "tags": ["sky"]
+  },
+  {
+    "src": "./photos/001300050013.jpg",
+    "title": "Beach Sunset",
+    "date": "2024-08",
+    "tags": ["sunset","mexico"]
+  },
+  {
+    "src": "./photos/DSCF1711_Original.JPG",
+    "title": "Toronto Island",
+    "date": "2025-08",
+    "tags": ["toronto"]
+  },
+  {
+    "src": "./photos/DSCF2092_Original.JPG",
+    "title": "Pier Edge",
+    "date": "2025-09",
+    "tags": ["water","toronto"]
+  },
+  {
+    "src": "./photos/IMG_1815.JPG",
+    "title": "Dock Sunset",
+    "date": "2025-06",
+    "tags": ["sunset","water"]
+  },
+  {
+    "src": "./photos/IMG_3927.JPG",
+    "title": "My Parents",
+    "date": "2025-10",
+    "tags": ["family"]
+  },
+  {
+    "src": "./photos/IMG_6156.JPG",
+    "title": "Above the Clouds",
+    "date": "2026-01",
+    "tags": ["airplane", "travel"]
+  },
+  {
+    "src": "./photos/IMG_6191.JPG",
+    "title": "Ferris Wheel x2",
+    "date": "2026-01",
+    "tags": ["reflection","miami"]
+  },
+  {
+    "src": "./photos/IMG_7460.JPG",
+    "title": "Mexico",
+    "date": "2024-08",
+    "tags": ["vacation","mexico"]
+  },
+  {
+    "src": "./photos/IMG_8245.JPG",
+    "title": "City Skyline",
+    "date": "2024-01",
+    "tags": ["city","night"]
+  }
+  
+]
