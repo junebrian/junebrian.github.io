@@ -1,67 +1,31 @@
-# junebrian.github.io
+# Brian Lee — Portfolio & Photo Gallery
 
-Personal portfolio and photography gallery, built as a static site for [GitHub Pages](https://pages.github.com/).
+Source for my personal site: a **fast, static portfolio** with a **client-side photo catalogue**, deployed on **GitHub Pages** with no separate hosting bill or build pipeline to maintain.
 
-## Tech stack
+**Live site:** [junebrian.github.io](https://junebrian.github.io) · **Gallery:** [junebrian.github.io/#/photos](https://junebrian.github.io/#/photos)
 
-- Plain HTML (`index.html`)
-- CSS (`styles.css`)
-- React 18 and JSX via CDN ([`react`](https://react.dev/), [`react-dom`](https://react.dev/), [`@babel/standalone`](https://babeljs.io/docs/babel-standalone)) — **no build step**
+---
 
-## Project layout
+### What this repo shows
 
-| File / folder | Purpose |
-|---------------|---------|
-| `index.html` | Entry page; loads styles and `app.js` |
-| `app.js` | Portfolio UI, routing (`#/`, `#/photos`), photo gallery |
-| `styles.css` | Layout and styling |
-| `photos/` | Image files plus the catalogue manifest |
-| `photos/photos.json` | List of photos (paths, titles, dates, tags) |
+- **Modern UI in plain static files** — React 18 used intentionally without a bundler: the same component model I use in larger apps, kept lean for Pages.
+- **Thoughtful UX** — hash-based routing between portfolio and gallery, keyboard-friendly photo modal (Escape to close), search across titles, dates, and tags.
+- **Easy content updates** — photos are data-driven: add files under `photos/` and entries to `photos/photos.json` so the gallery stays maintainable as the set grows.
 
-## Local preview
+### Tech stack
 
-Because the app fetches `photos/photos.json`, use a local server (browser `file://` can block fetches):
+| Layer | Choices |
+|--------|--------|
+| **Front end** | Semantic HTML, CSS, **React 18** (UMD from CDN), **Babel Standalone** for JSX in the browser |
+| **Data** | Static JSON manifest + image assets (no database) |
+| **Deploy** | **GitHub Pages** — commit and push; the published site updates from your repo settings |
 
-```bash
-# Python 3
-python -m http.server 8080
+No `npm install`, no CI job required for deploy: the trade-off is explicit (simplicity and transparency over a compiled bundle).
 
-# Node (npx)
-npx serve .
-```
+### Photos
 
-Open `http://localhost:8080` (or the URL your tool prints).
+Add images to `photos/`, list them in `photos/photos.json`, commit, and push. Format and examples: `photos/README.txt`.
 
-## Adding photos
+### Connect
 
-1. Add image files under `photos/` (e.g. `photos/my-shot.jpg`). Use simple, URL-safe names (lowercase, hyphens; avoid spaces).
-2. Edit `photos/photos.json`: add an object per image with a `src` that matches the file path from the site root.
-
-Example:
-
-```json
-[
-  {
-    "src": "./photos/my-shot.jpg",
-    "title": "Evening light",
-    "date": "2026-04-15",
-    "tags": ["city", "golden hour"]
-  }
-]
-```
-
-The Photos page reads this file and shows thumbnails; clicking opens a modal. Search filters by title, date, tags, or part of the `src` string.
-
-More detail: see `photos/README.txt`.
-
-## Deploying (GitHub Pages)
-
-Push this repo to GitHub. For a **username** site (`username.github.io`), publish from the default branch root (or the branch/folder your Pages settings use). After a push, the live site updates within a few minutes.
-
-**Live URL:** [https://junebrian.github.io](https://junebrian.github.io) — portfolio at `/`, gallery at `#/photos` (e.g. `https://junebrian.github.io/#/photos`).
-
-## Troubleshooting
-
-- **Gallery shows “Setup needed”** — `photos/photos.json` is missing, unreachable, or not valid JSON.
-- **Broken images** — `src` must match the real filename and path (GitHub Pages paths are case-sensitive).
-- **Old images after deploy** — Hard refresh or wait for CDN cache; `loadPhotos()` uses `cache: "no-store"` to reduce stale JSON.
+**[LinkedIn](https://www.linkedin.com/in/june-brian-lee/)** · **[GitHub](https://github.com/junebrian)**
