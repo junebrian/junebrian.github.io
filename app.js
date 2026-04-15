@@ -3,12 +3,96 @@ const { useEffect, useMemo, useRef, useState } = React;
 const RESUME = {
   name: "Brian Lee",
   tagline: "Software Developer | Computer Science | Toronto, ON",
+  location: "Toronto, ON",
+  phone: "(647) 739-0227",
   email: "junebrianhj@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/june-brian-lee/",
     github: "https://github.com/junebrian",
     website: "https://junebrian.github.io",
   },
+  skills: {
+    frontend: ["React", "JavaScript", "HTML", "CSS", "Figma", "Drupal"],
+    backend_db: [
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "C#",
+      "PHP",
+      "Python",
+      "Java",
+      "Azure SQL",
+    ],
+    tools_concepts: [
+      "Git",
+      "Unix",
+      "Linux",
+      "OAuth",
+      "REST APIs",
+      "Agile",
+      "Unit Testing",
+      "SEO Optimization",
+    ],
+  },
+  experience: [
+    {
+      org: "Environment Canada",
+      role: "Software Developer",
+      dates: "May 2024 – March 2026",
+      highlights: [
+        "Developed and maintained full-stack web applications using C#, Drupal, and PHP, supporting internal tools and public-facing government platforms.",
+        "Implemented secure authentication systems, including two-factor authentication (2FA), OAuth flows, and token-based authorization (access & ID tokens).",
+        "Designed and integrated RESTful APIs, improving system interoperability and scalability.",
+        "Collaborated in an Agile development environment, participating in sprint planning, code reviews, and iterative releases.",
+        "Authored technical documentation for APIs, authentication workflows, and system architecture, improving onboarding and knowledge transfer.",
+        "Troubleshot and optimized performance issues, enhancing application reliability and user experience.",
+      ],
+      tags: ["C#", "Drupal", "PHP", "OAuth", "REST", "Agile"],
+    },
+    {
+      org: "OCC",
+      role: "E-Commerce Advisor",
+      dates: "Sept 2023 – Dec 2023",
+      highlights: [
+        "Designed and developed responsive e-commerce websites for SMEs through the Canadian Digital Adoption Program (CDAP).",
+        "Applied SEO best practices and digital marketing strategies to increase search visibility and customer engagement.",
+        "Improved UI/UX design using modern design principles, resulting in more intuitive user journeys and higher conversion rates.",
+        "Collaborated with clients to gather requirements and deliver customized digital solutions.",
+      ],
+      tags: ["UX", "SEO", "Responsive", "Client work"],
+    },
+  ],
+  projects: [
+    {
+      name: "Personal Website",
+      dates: "Apr 2023 – Present",
+      link: "https://junebrian.github.io",
+      stack: ["HTML", "CSS", "Responsive Design", "SEO", "Inclusive Design"],
+      bullets: [
+        "Built and deployed a responsive portfolio website showcasing photography work with a focus on accessibility and performance.",
+        "Implemented clean UI/UX design principles, including minimalist layouts, typography hierarchy, and whitespace optimization.",
+        "Optimized site performance and discoverability through SEO techniques and semantic HTML structure.",
+        "Continuously iterated on design and features based on user feedback and analytics.",
+      ],
+    },
+  ],
+  education: [
+    {
+      school: "Toronto Metropolitan University",
+      program: "BSc (Hons), Computer Science",
+      dates: "Sept 2021 - Apr 2026",
+    },
+  ],
+  extracurriculars: [
+    {
+      name: "TMU Computer Science Course Union — VP Student Life",
+      dates: "June 2022 – May 2025",
+      bullets: [
+        "Organized and executed academic and social events for a community of 2,000+ students.",
+        "Led cross-functional teams to improve student engagement and campus experience.",
+      ],
+    },
+  ],
   about: [
     "I’m a Computer Science student and software developer focused on building reliable, accessible web experiences.",
     "Outside of software, I love photography—this site doubles as a simple gallery of my work.",
@@ -167,7 +251,7 @@ function NavOverlay({ route }) {
 
 function About() {
   return (
-    <section className="section">
+    <section className="section" id="about">
       <h2>About</h2>
       <div className="grid">
         <div className="card span-7">
@@ -204,12 +288,182 @@ function About() {
   );
 }
 
+function Chips({ items, ariaLabel }) {
+  return (
+    <div className="chips" aria-label={ariaLabel}>
+      {items.map((t) => (
+        <span className="chip" key={t}>
+          {t}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function Skills() {
+  const blocks = [
+    { title: "Frontend", items: RESUME.skills.frontend },
+    { title: "Backend & Databases", items: RESUME.skills.backend_db },
+    { title: "Tools & Concepts", items: RESUME.skills.tools_concepts },
+  ];
+  return (
+    <section className="section">
+      <h2>Skills</h2>
+      <div className="grid">
+        {blocks.map((b) => (
+          <div key={b.title} className="card small span-4">
+            <h3>{b.title}</h3>
+            <Chips items={b.items} ariaLabel={b.title} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Experience() {
+  return (
+    <section className="section">
+      <h2>Professional Experience</h2>
+      <div className="list">
+        {RESUME.experience.map((e) => (
+          <article className="item" key={`${e.org}-${e.role}`}>
+            <div className="item-top">
+              <div>
+                <h3>
+                  {e.role} · <span className="muted">{e.org}</span>
+                </h3>
+                <div className="meta">{e.dates}</div>
+              </div>
+              <Chips items={e.tags} ariaLabel="Tags" />
+            </div>
+            <ul className="bullets">
+              {e.highlights.map((h) => (
+                <li key={h}>{h}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Projects() {
+  return (
+    <section className="section">
+      <h2>Projects</h2>
+      <div className="list">
+        {RESUME.projects.map((p) => (
+          <article className="item" key={p.name}>
+            <div className="item-top">
+              <div>
+                <h3>
+                  {p.link ? (
+                    <a href={p.link} target="_blank" rel="noreferrer">
+                      {p.name}
+                    </a>
+                  ) : (
+                    p.name
+                  )}
+                </h3>
+                <div className="meta">{p.dates}</div>
+              </div>
+              <Chips items={p.stack} ariaLabel="Tech stack" />
+            </div>
+            <ul className="bullets">
+              {p.bullets.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Education() {
+  return (
+    <section className="section">
+      <h2>Education</h2>
+      <div className="list">
+        {RESUME.education.map((ed) => (
+          <article className="item" key={ed.school}>
+            <div className="item-top">
+              <div>
+                <h3>{ed.school}</h3>
+                <div className="meta">
+                  {ed.program} · {ed.dates}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Extracurriculars() {
+  return (
+    <section className="section">
+      <h2>Extracurriculars</h2>
+      <div className="list">
+        {RESUME.extracurriculars.map((x) => (
+          <article className="item" key={x.name}>
+            <div className="item-top">
+              <div>
+                <h3>{x.name}</h3>
+                <div className="meta">{x.dates}</div>
+              </div>
+            </div>
+            <ul className="bullets">
+              {x.bullets.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ContactCard() {
+  return (
+    <section className="section">
+      <h2>Contact</h2>
+      <div className="grid">
+        <div className="card span-7">
+          <h3>Let’s connect!</h3>
+          <div className="hero-actions">
+            <p>{RESUME.email}</p>
+            <a className="button" href={RESUME.links.github} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <a className="button" href={RESUME.links.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function AboutPage() {
   return (
     <>
       <HeroSplash />
       <div id="page-content" className="page-body container">
         <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Extracurriculars />
+        <ContactCard />
       </div>
     </>
   );
@@ -320,83 +574,85 @@ function PhotosPage() {
   }, [photos, query]);
 
   return (
-    <div id="page-content" className="container">
-      <section className="hero">
-        <p className="kicker">Photo catalogue</p>
-        <h2 className="headline">Photos I have taken through the years. Just a passion of mine!</h2>
-      </section>
+    <div className="photos-surface">
+      <div id="page-content" className="container">
+        <section className="hero">
+          <p className="kicker">Photo catalogue</p>
+          <h2 className="headline">Photos I have taken through the years. Just a passion of mine!</h2>
+        </section>
 
-      <section className="section">
-        <div className="gallery-top">
-          <div>
-            <h2 style={{ margin: 0 }}>Gallery</h2>
-            <div className="meta">
-              {loading ? "Loading…" : `${filtered.length} photo${filtered.length === 1 ? "" : "s"}`}
+        <section className="section">
+          <div className="gallery-top">
+            <div>
+              <h2 style={{ margin: 0 }}>Gallery</h2>
+              <div className="meta">
+                {loading ? "Loading…" : `${filtered.length} photo${filtered.length === 1 ? "" : "s"}`}
+              </div>
+            </div>
+            <div className="search">
+              <label className="muted" htmlFor="q">
+                Search
+              </label>
+              <input
+                id="q"
+                type="search"
+                value={query}
+                placeholder="title, tag, date…"
+                onChange={(e) => setQuery(e.target.value)}
+              />
             </div>
           </div>
-          <div className="search">
-            <label className="muted" htmlFor="q">
-              Search
-            </label>
-            <input
-              id="q"
-              type="search"
-              value={query}
-              placeholder="title, tag, date…"
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-        </div>
 
-        {error ? (
-          <div className="card">
-            <h3>Setup needed</h3>
-            <p>{error}</p>
-          </div>
-        ) : loading ? (
-          <div className="card">
-            <h3>Loading</h3>
-            <p>Fetching your catalogue…</p>
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="card">
-            <h3>No matches</h3>
-            <p>Try a different search, or add more photos.</p>
-          </div>
-        ) : (
-          <div className="masonry" aria-label="Photo grid">
-            {filtered.map((p) => (
-              <div
-                key={p.src}
-                className="thumb"
-                role="button"
-                tabIndex={0}
-                onClick={() => setActive(p)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") setActive(p);
-                }}
-              >
-                <img src={p.src} alt={p.title || "Photo"} loading="lazy" />
-                <div className="cap">
-                  <div
-                    style={{
-                      minWidth: 0,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {p.title || "Untitled"}
+          {error ? (
+            <div className="card">
+              <h3>Setup needed</h3>
+              <p>{error}</p>
+            </div>
+          ) : loading ? (
+            <div className="card">
+              <h3>Loading</h3>
+              <p>Fetching your catalogue…</p>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="card">
+              <h3>No matches</h3>
+              <p>Try a different search, or add more photos.</p>
+            </div>
+          ) : (
+            <div className="masonry" aria-label="Photo grid">
+              {filtered.map((p) => (
+                <div
+                  key={p.src}
+                  className="thumb"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setActive(p)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") setActive(p);
+                  }}
+                >
+                  <img src={p.src} alt={p.title || "Photo"} loading="lazy" />
+                  <div className="cap">
+                    <div
+                      style={{
+                        minWidth: 0,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {p.title || "Untitled"}
+                    </div>
+                    <span>{p.date || ""}</span>
                   </div>
-                  <span>{p.date || ""}</span>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+              ))}
+            </div>
+          )}
+        </section>
 
-      {active ? <PhotoModal photo={active} onClose={() => setActive(null)} /> : null}
+        {active ? <PhotoModal photo={active} onClose={() => setActive(null)} /> : null}
+      </div>
     </div>
   );
 }

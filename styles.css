@@ -127,6 +127,52 @@ a:hover{text-decoration:underline;}
 .hero-scroll svg{width:22px;height:22px;}
 .hero-scroll:focus{outline:3px solid rgba(255,154,74,0.5);outline-offset:3px;}
 
+/* Photos page surface (fix dark dead space) */
+.photos-surface{
+  width:100%;
+  flex:1;
+  background:
+    radial-gradient(1100px 820px at 12% 10%, rgba(255,154,74,0.22), transparent 58%),
+    radial-gradient(1000px 760px at 84% 18%, rgba(185,124,255,0.18), transparent 60%),
+    radial-gradient(1100px 820px at 55% 92%, rgba(120,170,255,0.12), transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,251,255,0.98));
+}
+.photos-surface{
+  --text:rgba(10,12,18,0.92);
+  --muted:rgba(10,12,18,0.72);
+  --subtle:rgba(10,12,18,0.55);
+  --border:rgba(10,12,18,0.12);
+  --shadow:0 18px 60px rgba(0,0,0,0.12);
+}
+.photos-surface .card,
+.photos-surface .item{
+  background:rgba(255,255,255,0.72);
+}
+.photos-surface .hero{
+  background:linear-gradient(160deg, rgba(255,255,255,0.82), rgba(255,255,255,0.62));
+}
+.photos-surface input[type="search"]{
+  background:rgba(255,255,255,0.9);
+  border-color:rgba(10,12,18,0.14);
+  color:var(--text);
+}
+.photos-surface .thumb .cap{
+  background:rgba(255,255,255,0.78);
+  border-color:rgba(10,12,18,0.14);
+  color:rgba(10,12,18,0.92);
+}
+.photos-surface .cap span{color:rgba(10,12,18,0.72);}
+.photos-surface .button{
+  border-color:rgba(10,12,18,0.16);
+  background:rgba(255,255,255,0.72);
+  color:rgba(10,12,18,0.92);
+}
+.photos-surface .button:hover{background:rgba(255,255,255,0.86);}
+.photos-surface .button.primary{
+  border-color:rgba(255,154,74,0.45);
+  background:linear-gradient(145deg, rgba(255,154,74,0.22), rgba(185,124,255,0.10));
+}
+
 .nav-overlay{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:18px 16px;
