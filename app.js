@@ -3,95 +3,15 @@ const { useEffect, useMemo, useRef, useState } = React;
 const RESUME = {
   name: "Brian Lee",
   tagline: "Software Developer | Computer Science | Toronto, ON",
-  location: "Toronto, ON",
-  phone: "(647) 739-0227",
   email: "junebrianhj@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/june-brian-lee/",
     github: "https://github.com/junebrian",
     website: "https://junebrian.github.io",
   },
-  skills: {
-    frontend: ["React", "JavaScript", "HTML", "CSS", "Figma", "Drupal"],
-    backend_db: [
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "C#",
-      "PHP",
-      "Python",
-      "Java",
-      "Azure SQL",
-    ],
-    tools_concepts: [
-      "Git",
-      "Unix",
-      "Linux",
-      "OAuth",
-      "REST APIs",
-      "Agile",
-      "Unit Testing",
-      "SEO Optimization",
-    ],
-  },
-  experience: [
-    {
-      org: "Environment Canada",
-      role: "Software Developer",
-      dates: "May 2024 – March 2026",
-      highlights: [
-        "Developed and maintained full-stack web applications using C#, Drupal, and PHP, supporting internal tools and public-facing government platforms.",
-        "Implemented secure authentication systems, including two-factor authentication (2FA), OAuth flows, and token-based authorization (access & ID tokens).",
-        "Designed and integrated RESTful APIs, improving system interoperability and scalability.",
-        "Collaborated in an Agile development environment, participating in sprint planning, code reviews, and iterative releases.",
-        "Authored technical documentation for APIs, authentication workflows, and system architecture, improving onboarding and knowledge transfer.",
-        "Troubleshot and optimized performance issues, enhancing application reliability and user experience.",
-      ],
-      tags: ["C#", "Drupal", "PHP", "OAuth", "REST", "Agile"],
-    },
-    {
-      org: "OCC",
-      role: "E-Commerce Advisor",
-      dates: "Sept 2023 – Dec 2023",
-      highlights: [
-        "Designed and developed responsive e-commerce websites for SMEs through the Canadian Digital Adoption Program (CDAP).",
-        "Applied SEO best practices and digital marketing strategies to increase search visibility and customer engagement.",
-        "Improved UI/UX design using modern design principles, resulting in more intuitive user journeys and higher conversion rates.",
-        "Collaborated with clients to gather requirements and deliver customized digital solutions.",
-      ],
-      tags: ["UX", "SEO", "Responsive", "Client work"],
-    },
-  ],
-  projects: [
-    {
-      name: "Personal Website",
-      dates: "Apr 2023 – Present",
-      link: "https://junebrian.github.io",
-      stack: ["HTML", "CSS", "Responsive Design", "SEO", "Inclusive Design"],
-      bullets: [
-        "Built and deployed a responsive portfolio website showcasing photography work with a focus on accessibility and performance.",
-        "Implemented clean UI/UX design principles, including minimalist layouts, typography hierarchy, and whitespace optimization.",
-        "Optimized site performance and discoverability through SEO techniques and semantic HTML structure.",
-        "Continuously iterated on design and features based on user feedback and analytics.",
-      ],
-    },
-  ],
-  education: [
-    {
-      school: "Toronto Metropolitan University",
-      program: "BSc (Hons), Computer Science",
-      dates: "Sept 2021 - Apr 2026",
-    },
-  ],
-  extracurriculars: [
-    {
-      name: "TMU Computer Science Course Union — VP Student Life",
-      dates: "June 2022 – May 2025",
-      bullets: [
-        "Organized and executed academic and social events for a community of 2,000+ students.",
-        "Led cross-functional teams to improve student engagement and campus experience.",
-      ],
-    },
+  about: [
+    "I’m a Computer Science student and software developer focused on building reliable, accessible web experiences.",
+    "Outside of software, I love photography—this site doubles as a simple gallery of my work.",
   ],
 };
 
@@ -109,17 +29,6 @@ function useHashRoute() {
   }, []);
   return route;
 }
-
-const SECTION_IDS = [
-  "home",
-  "about",
-  "skills",
-  "resume",
-  "projects",
-  "education",
-  "activities",
-  "contact",
-];
 
 function useHeroPast(enabled) {
   const [past, setPast] = useState(false);
@@ -140,43 +49,9 @@ function useHeroPast(enabled) {
   return past;
 }
 
-function useActiveSection(ids, enabled) {
-  const [active, setActive] = useState("home");
-  useEffect(() => {
-    if (!enabled) return undefined;
-
-    const compute = () => {
-      const line = window.scrollY + 140;
-      let current = ids[0];
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        if (top <= line) current = id;
-      }
-      setActive(current);
-    };
-
-    const frame = () => requestAnimationFrame(compute);
-    compute();
-    window.addEventListener("scroll", frame, { passive: true });
-    window.addEventListener("resize", compute);
-    return () => {
-      window.removeEventListener("scroll", frame);
-      window.removeEventListener("resize", compute);
-    };
-  }, [enabled, ids.join("|")]);
-  return active;
-}
-
-const PORTFOLIO_NAV = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "resume", label: "Resume" },
-  { id: "projects", label: "Projects" },
-  { id: "activities", label: "Activities" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
+const NAV = [
+  { label: "About", to: "/" },
+  { label: "Photos", to: "/photos" },
 ];
 
 function SocialIconGitHub() {
@@ -249,7 +124,7 @@ function HeroSplash() {
       <button
         type="button"
         className="hero-scroll"
-        aria-label="Scroll to portfolio and résumé"
+        aria-label="Scroll to about"
         onClick={scrollToContent}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -267,75 +142,24 @@ function HeroSplash() {
   );
 }
 
-function NavOverlay({ route, activeSection }) {
+function NavOverlay({ route }) {
   const isPhotos = route === "/photos";
   const heroPast = useHeroPast(!isPhotos);
   const solid = heroPast || isPhotos;
 
-  if (isPhotos) {
-    const nav = [
-      { label: "Portfolio", to: "/" },
-      { label: "Photos", to: "/photos" },
-    ];
-    const current = route === "/photos" ? "/photos" : "/";
-    return (
-      <header className="nav-overlay is-photos" role="banner">
-        <div className="nav-photos-bar">
-          <div className="brand">
-            <div className="mark" aria-hidden="true" />
-            <div>
-              <h1>{RESUME.name}</h1>
-              <p>CS portfolio + photography</p>
-            </div>
-          </div>
-          <nav className="nav" aria-label="Primary">
-            {nav.map((n) => (
-              <a
-                key={n.to}
-                className="pill"
-                href={`#${n.to}`}
-                aria-current={current === n.to ? "page" : undefined}
-              >
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <div className="cta">
-            <a
-              className="button primary"
-              href={RESUME.links.linkedin}
-              target="_blank"
-              rel="noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              className="button primary"
-              href={RESUME.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-          </div>
-        </div>
-      </header>
-    );
-  }
-
+  const current = isPhotos ? "/photos" : "/";
   return (
-    <header className={`nav-overlay${solid ? " is-solid" : ""}`} role="banner">
+    <header className={`nav-overlay${isPhotos ? " is-photos" : ""}${solid ? " is-solid" : ""}`} role="banner">
       <nav className="nav-overlay-links" aria-label="Primary">
-        {PORTFOLIO_NAV.map((n) => (
+        {NAV.map((n) => (
           <a
-            key={n.id}
-            href={`#${n.id}`}
-            aria-current={activeSection === n.id ? "true" : undefined}
+            key={n.to}
+            href={`#${n.to}`}
+            aria-current={current === n.to ? "true" : undefined}
           >
             {n.label}
           </a>
         ))}
-        <a href="#/photos">Photos</a>
       </nav>
     </header>
   );
@@ -343,196 +167,49 @@ function NavOverlay({ route, activeSection }) {
 
 function About() {
   return (
-    <section className="section" id="about">
+    <section className="section">
       <h2>About</h2>
-      <p className="lede" style={{ marginTop: 6, maxWidth: "70ch" }}>
-        I’m a Computer Science student and software developer with experience shipping
-        full-stack apps in government and building accessible, performance-focused web
-        experiences—from secure authentication flows to clean UI.
-      </p>
-    </section>
-  );
-}
-
-function Chips({ items, ariaLabel }) {
-  return (
-    <div className="chips" aria-label={ariaLabel}>
-      {items.map((t) => (
-        <span className="chip" key={t}>
-          {t}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function Skills() {
-  const blocks = [
-    { title: "Frontend", items: RESUME.skills.frontend },
-    { title: "Backend & Databases", items: RESUME.skills.backend_db },
-    { title: "Tools & Concepts", items: RESUME.skills.tools_concepts },
-  ];
-  return (
-    <section className="section" id="skills">
-      <h2>Skills</h2>
-      <div className="grid">
-        {blocks.map((b) => (
-          <div key={b.title} className="card small span-4">
-            <h3>{b.title}</h3>
-            <Chips items={b.items} ariaLabel={b.title} />
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Experience() {
-  return (
-    <section className="section" id="resume">
-      <h2>Professional Experience</h2>
-      <div className="list">
-        {RESUME.experience.map((e) => (
-          <article className="item" key={`${e.org}-${e.role}`}>
-            <div className="item-top">
-              <div>
-                <h3>
-                  {e.role} · <span className="muted">{e.org}</span>
-                </h3>
-                <div className="meta">{e.dates}</div>
-              </div>
-              <Chips items={e.tags} ariaLabel="Tags" />
-            </div>
-            <ul className="bullets">
-              {e.highlights.map((h) => (
-                <li key={h}>{h}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Projects() {
-  return (
-    <section className="section" id="projects">
-      <h2>Projects</h2>
-      <div className="list">
-        {RESUME.projects.map((p) => (
-          <article className="item" key={p.name}>
-            <div className="item-top">
-              <div>
-                <h3>
-                  {p.link ? (
-                    <a href={p.link} target="_blank" rel="noreferrer">
-                      {p.name}
-                    </a>
-                  ) : (
-                    p.name
-                  )}
-                </h3>
-                <div className="meta">{p.dates}</div>
-              </div>
-              <Chips items={p.stack} ariaLabel="Tech stack" />
-            </div>
-            <ul className="bullets">
-              {p.bullets.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Education() {
-  return (
-    <section className="section" id="education">
-      <h2>Education</h2>
-      <div className="list">
-        {RESUME.education.map((ed) => (
-          <article className="item" key={ed.school}>
-            <div className="item-top">
-              <div>
-                <h3>{ed.school}</h3>
-                <div className="meta">
-                  {ed.program} · {ed.dates}
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Extracurriculars() {
-  return (
-    <section className="section" id="activities">
-      <h2>Extracurriculars</h2>
-      <div className="list">
-        {RESUME.extracurriculars.map((x) => (
-          <article className="item" key={x.name}>
-            <div className="item-top">
-              <div>
-                <h3>{x.name}</h3>
-                <div className="meta">{x.dates}</div>
-              </div>
-            </div>
-            <ul className="bullets">
-              {x.bullets.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ContactCard() {
-  return (
-    <section className="section" id="contact">
-      <h2>Contact</h2>
       <div className="grid">
         <div className="card span-7">
-          <h3>Let’s connect!</h3>
-          <div className="hero-actions">
-            <p>
-                {RESUME.email}
-            </p>
-            
+          <h3>Hi — I’m {RESUME.name}</h3>
+          <p className="muted" style={{ margin: "8px 0 0", lineHeight: 1.7 }}>
+            {RESUME.about[0]}
+          </p>
+          <p className="muted" style={{ margin: "10px 0 0", lineHeight: 1.7 }}>
+            {RESUME.about[1]}
+          </p>
+          <div className="hero-actions" style={{ marginTop: 14 }}>
+            <a className="button primary" href="#/photos">
+              View photos
+            </a>
             <a className="button" href={RESUME.links.github} target="_blank" rel="noreferrer">
               GitHub
             </a>
             <a className="button" href={RESUME.links.linkedin} target="_blank" rel="noreferrer">
               LinkedIn
             </a>
+            <a className="button" href={`mailto:${RESUME.email}`}>
+              Email
+            </a>
           </div>
+        </div>
+        <div className="card small span-5">
+          <h3>Now</h3>
+          <p>
+            Working on projects, learning, and documenting what I build. If you want to collaborate, reach out.
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
-function PortfolioPage() {
+function AboutPage() {
   return (
     <>
       <HeroSplash />
       <div id="page-content" className="page-body container">
         <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Education />
-        <Extracurriculars />
-        <ContactCard />
       </div>
     </>
   );
@@ -727,11 +404,10 @@ function PhotosPage() {
 function App() {
   const route = useHashRoute();
   const isPhotos = route === "/photos";
-  const activeSection = useActiveSection(SECTION_IDS, !isPhotos);
-  const page = isPhotos ? <PhotosPage /> : <PortfolioPage />;
+  const page = isPhotos ? <PhotosPage /> : <AboutPage />;
   return (
     <div className="shell">
-      <NavOverlay route={route} activeSection={activeSection} />
+      <NavOverlay route={route} />
       <main id="main" className="main">
         {page}
       </main>

@@ -1,5 +1,6 @@
 :root{
-  --bg:#0b1020;
+  /* Synced to photos/001300050013.jpg (sunset + slate) */
+  --bg:#08101c;
   --panel:rgba(255,255,255,0.06);
   --panel2:rgba(255,255,255,0.09);
   --text:rgba(255,255,255,0.92);
@@ -7,10 +8,10 @@
   --subtle:rgba(255,255,255,0.55);
   --border:rgba(255,255,255,0.12);
   --shadow:0 18px 60px rgba(0,0,0,0.45);
-  --accent:#7c5cff;
-  --accent2:#2ee9a6;
-  --hero-nav-accent:#ff9a4a;
-  --ring:rgba(124,92,255,0.35);
+  --accent:#ff9a4a;         /* warm peak highlight */
+  --accent2:#b97cff;        /* sunset violet */
+  --hero-nav-accent:#ffb37a;
+  --ring:rgba(255,154,74,0.35);
   --radius:18px;
   --radius-sm:12px;
   --max:1100px;
@@ -22,9 +23,9 @@ body{
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
   color:var(--text);
   background:
-    radial-gradient(1100px 800px at 12% 12%, rgba(124,92,255,0.22), transparent 55%),
-    radial-gradient(900px 700px at 80% 22%, rgba(46,233,166,0.14), transparent 55%),
-    radial-gradient(900px 700px at 50% 90%, rgba(255,255,255,0.10), transparent 60%),
+    radial-gradient(1100px 820px at 12% 10%, rgba(255,154,74,0.20), transparent 56%),
+    radial-gradient(1000px 760px at 84% 18%, rgba(185,124,255,0.16), transparent 58%),
+    radial-gradient(1100px 820px at 55% 92%, rgba(120,170,255,0.12), transparent 62%),
     var(--bg);
 }
 body.portfolio-landing{
@@ -172,19 +173,7 @@ a:hover{text-decoration:underline;}
 .nav-overlay-links a[aria-current="true"]{
   color:var(--hero-nav-accent);
 }
-.nav-photos-bar{
-  width:100%;
-  max-width:var(--max);
-  margin:0 auto;
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
 .page-body{padding-top:8px;padding-bottom:56px;}
-section[id]:not(#home){scroll-margin-top:88px;}
 .topbar{
   position:sticky;top:0;z-index:50;
   backdrop-filter:blur(14px);
