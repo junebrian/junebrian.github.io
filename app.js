@@ -428,13 +428,15 @@ function AboutPage() {
   return (
     <>
       <HeroSplash />
-      <div id="page-content" className="page-body container">
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Education />
-        <Extracurriculars />s
+      <div className="about-surface">
+        <div id="page-content" className="page-body container">
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Education />
+          <Extracurriculars />
+        </div>
       </div>
     </>
   );
