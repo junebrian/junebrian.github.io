@@ -2,6 +2,7 @@ const { useEffect, useMemo, useRef, useState } = React;
 
 const RESUME = {
   name: "Brian Lee",
+  tagline: "Software Developer | Computer Science | Toronto, ON",
   location: "Toronto, ON",
   phone: "(647) 739-0227",
   email: "junebrianhj@gmail.com",
@@ -109,70 +110,245 @@ function useHashRoute() {
   return route;
 }
 
-function Topbar({ route }) {
-  const nav = [
-    { label: "Portfolio", to: "/" },
-    { label: "Photos", to: "/photos" },
-  ];
-  const current = route === "/photos" ? "/photos" : "/";
+const SECTION_IDS = [
+  "home",
+  "about",
+  "skills",
+  "resume",
+  "projects",
+  "education",
+  "activities",
+  "contact",
+];
+
+function useHeroPast(enabled) {
+  const [past, setPast] = useState(false);
+  useEffect(() => {
+    if (!enabled) {
+      setPast(false);
+      return undefined;
+    }
+    const el = document.getElementById("home");
+    if (!el) return undefined;
+    const io = new IntersectionObserver(
+      ([e]) => setPast(!e.isIntersecting),
+      { threshold: 0, rootMargin: "-64px 0px 0px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [enabled]);
+  return past;
+}
+
+function useActiveSection(ids, enabled) {
+  const [active, setActive] = useState("home");
+  useEffect(() => {
+    if (!enabled) return undefined;
+
+    const compute = () => {
+      const line = window.scrollY + 140;
+      let current = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (top <= line) current = id;
+      }
+      setActive(current);
+    };
+
+    const frame = () => requestAnimationFrame(compute);
+    compute();
+    window.addEventListener("scroll", frame, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", frame);
+      window.removeEventListener("resize", compute);
+    };
+  }, [enabled, ids.join("|")]);
+  return active;
+}
+
+const PORTFOLIO_NAV = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "resume", label: "Resume" },
+  { id: "projects", label: "Projects" },
+  { id: "activities", label: "Activities" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
+
+function SocialIconGitHub() {
   return (
-    <header className="topbar">
-      <div className="topbar-inner">
-        <div className="brand">
-          <div className="mark" aria-hidden="true" />
-          <div>
-            <h1>{RESUME.name}</h1>
-            <p>CS portfolio + photography</p>
-          </div>
-        </div>
-        <nav className="nav" aria-label="Primary">
-          {nav.map((n) => (
-            <a
-              key={n.to}
-              className="pill"
-              href={`#${n.to}`}
-              aria-current={current === n.to ? "page" : undefined}
-            >
-              {n.label}
-            </a>
-          ))}
-        </nav>
-        <div className="cta">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+      />
+    </svg>
+  );
+}
+
+function SocialIconLinkedIn() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+      />
+    </svg>
+  );
+}
+
+function SocialIconMail() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+      />
+    </svg>
+  );
+}
+
+function HeroSplash() {
+  const scrollToContent = () => {
+    document.getElementById("page-content")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <section id="home" className="hero-splash" aria-label="Introduction">
+      <div className="hero-splash-inner">
+        <h1 className="hero-name">{RESUME.name}</h1>
+        <p className="hero-tagline">{RESUME.tagline}</p>
+        <div className="hero-social">
           <a
-          className="button primary"
-          href={RESUME.links.linkedin}
-          target="_blank"
-          rel="noreferrer"
-        >
-          LinkedIn
-        </a>
-          <a
-            className="button primary"
             href={RESUME.links.github}
             target="_blank"
             rel="noreferrer"
+            aria-label="GitHub profile"
           >
-            GitHub
+            <SocialIconGitHub />
+          </a>
+          <a
+            href={RESUME.links.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn profile"
+          >
+            <SocialIconLinkedIn />
+          </a>
+          <a href={`mailto:${RESUME.email}`} aria-label="Email">
+            <SocialIconMail />
           </a>
         </div>
       </div>
+      <button
+        type="button"
+        className="hero-scroll"
+        aria-label="Scroll to portfolio and résumé"
+        onClick={scrollToContent}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 9l6 6 6-6"
+          />
+        </svg>
+      </button>
+    </section>
+  );
+}
+
+function NavOverlay({ route, activeSection }) {
+  const isPhotos = route === "/photos";
+  const heroPast = useHeroPast(!isPhotos);
+  const solid = heroPast || isPhotos;
+
+  if (isPhotos) {
+    const nav = [
+      { label: "Portfolio", to: "/" },
+      { label: "Photos", to: "/photos" },
+    ];
+    const current = route === "/photos" ? "/photos" : "/";
+    return (
+      <header className="nav-overlay is-photos" role="banner">
+        <div className="nav-photos-bar">
+          <div className="brand">
+            <div className="mark" aria-hidden="true" />
+            <div>
+              <h1>{RESUME.name}</h1>
+              <p>CS portfolio + photography</p>
+            </div>
+          </div>
+          <nav className="nav" aria-label="Primary">
+            {nav.map((n) => (
+              <a
+                key={n.to}
+                className="pill"
+                href={`#${n.to}`}
+                aria-current={current === n.to ? "page" : undefined}
+              >
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          <div className="cta">
+            <a
+              className="button primary"
+              href={RESUME.links.linkedin}
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              className="button primary"
+              href={RESUME.links.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  return (
+    <header className={`nav-overlay${solid ? " is-solid" : ""}`} role="banner">
+      <nav className="nav-overlay-links" aria-label="Primary">
+        {PORTFOLIO_NAV.map((n) => (
+          <a
+            key={n.id}
+            href={`#${n.id}`}
+            aria-current={activeSection === n.id ? "true" : undefined}
+          >
+            {n.label}
+          </a>
+        ))}
+        <a href="#/photos">Photos</a>
+      </nav>
     </header>
   );
 }
 
-function Hero() {
+function About() {
   return (
-    <section className="hero">
-      <p className="kicker">
-        {RESUME.location} · <a href={`mailto:${RESUME.email}`}>{RESUME.email}</a>
-      </p>
-      <h2 className="headline">
-        Building reliable web experiences, from secure auth flows to clean UI.
-      </h2>
-      <p className="lede">
-        I’m a Computer Science student and software developer with experience
-        shipping full-stack apps in government and building accessible,
-        performance-focused web experiences.
+    <section className="section" id="about">
+      <h2>About</h2>
+      <p className="lede" style={{ marginTop: 6, maxWidth: "70ch" }}>
+        I’m a Computer Science student and software developer with experience shipping
+        full-stack apps in government and building accessible, performance-focused web
+        experiences—from secure authentication flows to clean UI.
       </p>
     </section>
   );
@@ -197,7 +373,7 @@ function Skills() {
     { title: "Tools & Concepts", items: RESUME.skills.tools_concepts },
   ];
   return (
-    <section className="section">
+    <section className="section" id="skills">
       <h2>Skills</h2>
       <div className="grid">
         {blocks.map((b) => (
@@ -213,7 +389,7 @@ function Skills() {
 
 function Experience() {
   return (
-    <section className="section">
+    <section className="section" id="resume">
       <h2>Professional Experience</h2>
       <div className="list">
         {RESUME.experience.map((e) => (
@@ -241,7 +417,7 @@ function Experience() {
 
 function Projects() {
   return (
-    <section className="section">
+    <section className="section" id="projects">
       <h2>Projects</h2>
       <div className="list">
         {RESUME.projects.map((p) => (
@@ -275,7 +451,7 @@ function Projects() {
 
 function Education() {
   return (
-    <section className="section">
+    <section className="section" id="education">
       <h2>Education</h2>
       <div className="list">
         {RESUME.education.map((ed) => (
@@ -297,7 +473,7 @@ function Education() {
 
 function Extracurriculars() {
   return (
-    <section className="section">
+    <section className="section" id="activities">
       <h2>Extracurriculars</h2>
       <div className="list">
         {RESUME.extracurriculars.map((x) => (
@@ -322,7 +498,7 @@ function Extracurriculars() {
 
 function ContactCard() {
   return (
-    <section className="section">
+    <section className="section" id="contact">
       <h2>Contact</h2>
       <div className="grid">
         <div className="card span-7">
@@ -347,15 +523,18 @@ function ContactCard() {
 
 function PortfolioPage() {
   return (
-    <div className="container">
-      <Hero />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Education />
-      <Extracurriculars />
-      <ContactCard />
-    </div>
+    <>
+      <HeroSplash />
+      <div id="page-content" className="page-body container">
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Extracurriculars />
+        <ContactCard />
+      </div>
+    </>
   );
 }
 
@@ -464,7 +643,7 @@ function PhotosPage() {
   }, [photos, query]);
 
   return (
-    <div className="container">
+    <div id="page-content" className="container">
       <section className="hero">
         <p className="kicker">Photo catalogue</p>
         <h2 className="headline">Photos I have taken through the years. Just a passion of mine!</h2>
@@ -547,10 +726,12 @@ function PhotosPage() {
 
 function App() {
   const route = useHashRoute();
-  const page = route === "/photos" ? <PhotosPage /> : <PortfolioPage />;
+  const isPhotos = route === "/photos";
+  const activeSection = useActiveSection(SECTION_IDS, !isPhotos);
+  const page = isPhotos ? <PhotosPage /> : <PortfolioPage />;
   return (
     <div className="shell">
-      <Topbar route={route} />
+      <NavOverlay route={route} activeSection={activeSection} />
       <main id="main" className="main">
         {page}
       </main>
