@@ -94,6 +94,84 @@
     "title": "City of Signs",
     "date": "2026-01",
     "tags": ["city","night","lights"]
+  },
+  {
+    "src": "./photos/DSCF9882_Original.JPG",
+    "title": "Monkeying Around",
+    "date": "2026-05",
+    "tags": ["nature","monkey","japan"]
+  },
+  {
+    "src": "./photos/DSCF8906_Original.JPG",
+    "title": "Tokyo Shrine",
+    "date": "2026-05",
+    "tags": ["shrine","japan"]
+  },
+  {
+    "src": "./photos/DSCF8520_Original.JPG",
+    "title": "Flower Vine",
+    "date": "2026-05",
+    "tags": ["flower","nature","japan"]
+  },
+  {
+    "src": "./photos/DSCF8369_Original.JPG",
+    "title": "Sake Barrels",
+    "date": "2026-05",
+    "tags": ["japan","sake"]
+  },
+  {
+    "src": "./photos/DSCF8224_Original.JPG",
+    "title": "Quiet Tokyo Alley",
+    "date": "2026-05",
+    "tags": ["japan","alley"]
+  },
+  {
+    "src": "./photos/DSCF7990_Original.JPG",
+    "title": "Suwon Fortress",
+    "date": "2026-05",
+    "tags": ["korea"]
+  },
+  {
+    "src": "./photos/DSCF7867_Original.JPG",
+    "title": "Hanok Village",
+    "date": "2026-05",
+    "tags": ["korea","village","alley"]
+  },
+  {
+    "src": "./photos/DSCF7238_Original.JPG",
+    "title": "Rising Fog",
+    "date": "2026-05",
+    "tags": ["korea"]
+  },
+  {
+    "src": "./photos/DSCF7226_Original.JPG",
+    "title": "Withered Roses",
+    "date": "2026-05",
+    "tags": ["flower","korea"]
+  },
+  {
+    "src": "./photos/DSCF6942_Original.JPG",
+    "title": "Quiet Seoul Alley",
+    "date": "2026-05",
+    "tags": ["korea","alley"]
+  },
+  {
+    "src": "./photos/DSCF0832_Original.JPG",
+    "title": "Deer in the Forest",
+    "date": "2026-05",
+    "tags": ["nature","deer","japan"]
+  },
+  {
+    "src": "./photos/DSCF0492.JPG",
+    "title": "Gold Shrine",
+    "date": "2026-05",
+    "tags": ["shrine","japan"]
+  },
+  {
+    "src": "./photos/DSCF0101_Original.JPG",
+    "title": "Last Japan Sunset",
+    "date": "2026-05",
+    "tags": ["sunset","japan"]
   }
   
 ]
